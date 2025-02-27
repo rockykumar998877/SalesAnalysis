@@ -49,13 +49,13 @@
             <div class="col-md-4">
                 <div class="card p-3 shadow">
                     <h5>Total Sales Per Product</h5>
-                    <h3>-</h3>
+                    <h3>{{ $totalOrders }}</h3>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card p-3 shadow">
                     <h5>Highest Sales Month</h5>
-                    <h3>-</h3>
+                    <h3>{{ $highestSalesMonth->month ?? 'N/A' }}</h3>
                 </div>
             </div>
         </div>

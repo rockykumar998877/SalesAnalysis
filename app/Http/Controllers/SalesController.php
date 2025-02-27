@@ -45,11 +45,14 @@ class SalesController extends Controller
         $totalProducts = Sale::distinct('product')->count();
         $totalOrders = Sale::count();
 
-        $totalSalesPerProduct = Sale::select('Product', DB::raw('SUM(Sales) as total_sales'))
-            ->groupBy('Product')
-            ->get();
+        $highestSalesMonth = Sale::selectRaw("DATE_FORMAT(sale_date, '%M %Y') as month, SUM(Gross_Sales) as total_sales")
+        ->groupBy('month')
+        ->orderByDesc('total_sales')
+        ->first();
 
-        return view('sales.index', compact('sales', 'totalProducts', 'totalOrders', 'totalSalesPerProduct'));
+        $averageSales = Sale::avg('Gross_Sales');
+
+        return view('sales.index', compact('sales', 'totalProducts', 'totalOrders', 'highestSalesMonth','averageSales'));
     }
 
 
